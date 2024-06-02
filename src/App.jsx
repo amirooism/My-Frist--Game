@@ -3,7 +3,7 @@ import GameBoard from "./components/GameBoard";
 import Player from "./components/Player";
 import Log from "./components/Log";
 
-function derivedActivePlayer(gameTurns) {
+function derivedActivePPPPlayer(gameTurns) {
   let currentPlayer = "X";
   if (gameTurns.length > 0 && gameTurns[0].Player === "X") {
     currentPlayer = "O";
