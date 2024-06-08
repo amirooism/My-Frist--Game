@@ -2,8 +2,8 @@ import { useState } from "react";
 import GameBoard from "./components/GameBoard";
 import Player from "./components/Player";
 import Log from "./components/Log";
-
-function derivedActivePPPPlayer(gameTurns) {
+import { WINNING_COMBINATIONS } from "./winning-combinations";
+function derivedActivePlayer(gameTurns) {
   let currentPlayer = "X";
   if (gameTurns.length > 0 && gameTurns[0].Player === "X") {
     currentPlayer = "O";
@@ -20,9 +20,7 @@ function App() {
   function handleSelectSquare(rowIndex, colIndex) {
     // setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     setGameTurns((prevTurns) => {
-     
      const  currentPlayer = derivedActivePlayer(prevTurns);
-
       const updatedTurns = [
         { square: { row: rowIndex, col: colIndex }, Player: currentPlayer },
         ...prevTurns,
