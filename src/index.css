@@ -349,3 +349,7 @@ ol {
     transform: scale(1);
   }
 }
+/* Add this CSS to your stylesheet or component */
+button:disabled {
+  cursor: not-allowed;
+}
