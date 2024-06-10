@@ -15,32 +15,40 @@ function derivedActivePlayer(gameTurns) {
   if (gameTurns.length > 0 && gameTurns[0].Player === "X") {
     currentPlayer = "O";
   }
-  return currentPlayer
+  return currentPlayer;
 }
 
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
-  // const [activePlayer, setActivePlayer] = useState("X");
   let gameBoard = initialGameBoard;
 
-  for (const turn of turns) {
+  
+  for (const turn of gameTurns) {
     const { square, Player } = turn;
     const { row, col } = square;
     gameBoard[row][col] = Player;
   }
- 
+  
+  let winner = null;
+  
   for (const combination of WINNING_COMBINATIONS) {
-    const firstSquareSymbol = []
-    const secondSquareSymbol
-    const thirdSquareSymbol
+    const firstSquareSymbol = [combination[0].row][combination[0].column];
+    const secondSquareSymbol = [combination[1].row][combination[1].column];
+    const thirdSquareSymbol = [combination[2].row][combination[2].column];
+    if (
+      firstSquareSymbol &&
+      firstSquareSymbol === secondSquareSymbol &&
+      firstSquareSymbol === thirdSquareSymbol
+    ) {
+      winner = firstSquareSymbol;
+    }
   }
 
- const activePlayer = derivedActivePlayer(gameTurns);
+  const activePlayer = derivedActivePlayer(gameTurns);
 
   function handleSelectSquare(rowIndex, colIndex) {
-    // setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     setGameTurns((prevTurns) => {
-     const  currentPlayer = derivedActivePlayer(prevTurns);
+      const currentPlayer = derivedActivePlayer(prevTurns);
       const updatedTurns = [
         { square: { row: rowIndex, col: colIndex }, Player: currentPlayer },
         ...prevTurns,
@@ -63,6 +71,7 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
+        {winner && <p>you won, {winner}!</p>}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
@@ -70,4 +79,3 @@ function App() {
   );
 }
 export default App;
-//asdasdadadas
